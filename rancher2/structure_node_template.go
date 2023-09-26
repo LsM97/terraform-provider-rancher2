@@ -58,6 +58,10 @@ func flattenNodeTemplate(d *schema.ResourceData, in *NodeTemplate) error {
 		if in.OutscaleConfig == nil {
 			return fmt.Errorf("[ERROR] Node template driver %s requires outscale_config", in.Driver)
 		}
+	case nutanixConfigDriver:
+		if in.NutanixConfig == nil {
+			return fmt.Errorf("[ERROR] Node template driver %s requires nutanix_config", in.Driver)
+		}
 	default:
 		return fmt.Errorf("[ERROR] Unsupported driver on node template: %s", in.Driver)
 	}
@@ -254,6 +258,11 @@ func expandNodeTemplate(in *schema.ResourceData) *NodeTemplate {
 	if v, ok := in.Get("vsphere_config").([]interface{}); ok && len(v) > 0 {
 		obj.VmwarevsphereConfig = expandVsphereConfig(v)
 		obj.Driver = vmwarevsphereConfigDriver
+	}
+
+	if v, ok := in.Get("nutanix_config").([]interface{}); ok && len(v) > 0 {
+		obj.NutanixConfig = expandNutanixConfig(v)
+		obj.Driver = nutanixConfigDriver
 	}
 
 	if v, ok := in.Get("annotations").(map[string]interface{}); ok && len(v) > 0 {

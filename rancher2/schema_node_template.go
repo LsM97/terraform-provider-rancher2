@@ -19,6 +19,7 @@ type NodeTemplate struct {
 	OpenstackConfig     *openstackConfig     `json:"openstackConfig,omitempty" yaml:"openstackConfig,omitempty"`
 	VmwarevsphereConfig *vmwarevsphereConfig `json:"vmwarevsphereConfig,omitempty" yaml:"vmwarevsphereConfig,omitempty"`
 	OutscaleConfig      *outscaleConfig      `json:"outscaleConfig,omitempty" yaml:"outscaleConfig,omitempty"`
+	NutanixConfig       *nutanixConfig       `json:"nutanixConfig,omitempty" yaml:"nutanixConfig,omitempty"`
 }
 
 //Schemas
@@ -33,7 +34,8 @@ var allNodeTemplateDriverConfigFields = []string{
 	"opennebula_config",
 	"openstack_config",
 	"vsphere_config",
-	"outscale_config"}
+	"outscale_config",
+	"nutanix_config"}
 
 func getConflicts(fieldNames []string, fieldName string) []string {
 	conflicts := make([]string, 0, len(fieldNames)-1)
@@ -213,6 +215,15 @@ func nodeTemplateFields() map[string]*schema.Schema {
 			ConflictsWith: getConflicts(allNodeTemplateDriverConfigFields, "vsphere_config"),
 			Elem: &schema.Resource{
 				Schema: vsphereConfigFields(),
+			},
+		},
+		"nutanix_config": {
+			Type:          schema.TypeList,
+			MaxItems:      1,
+			Optional:      true,
+			ConflictsWith: getConflicts(allNodeTemplateDriverConfigFields, "nutanix_config"),
+			Elem: &schema.Resource{
+				Schema: nutanixConfigFields(),
 			},
 		},
 	}

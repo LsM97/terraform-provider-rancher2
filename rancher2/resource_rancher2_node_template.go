@@ -158,6 +158,8 @@ func resourceRancher2NodeTemplateUpdate(d *schema.ResourceData, meta interface{}
 		update["vmwarevsphereConfig"] = expandVsphereConfig(d.Get("vsphere_config").([]interface{}))
 	case outscaleConfigDriver:
 		update["outscaleConfig"] = expandOutscaleConfig(d.Get("outscale_config").([]interface{}))
+	case nutanixConfigDriver:
+		update["nutanixConfig"] = expandNutanixConfig(d.Get("nutanix_config").([]interface{}))
 	}
 
 	newNodeTemplate := &NodeTemplate{}
