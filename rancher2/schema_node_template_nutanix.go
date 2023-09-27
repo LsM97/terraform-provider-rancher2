@@ -128,7 +128,7 @@ func nutanixConfigFields() map[string]*schema.Schema {
 		},
 		"vmNetwork": {
 			Type:        schema.TypeList,
-			Optional:    false,
+			Optional:    true,
 			Description: "The network(s) to which the VM is attached to",
 			Elem: &schema.Schema{
 				Type: schema.TypeString,
