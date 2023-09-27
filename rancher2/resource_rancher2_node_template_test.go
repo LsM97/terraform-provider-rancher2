@@ -314,44 +314,44 @@ resource "` + testAccRancher2NodeTemplateType + `" "foo-outscale" {
 	testAccRancher2NodeTemplateOutscaleConfig       = testAccRancher2NodeTemplateOutscaleDriver + testAccRancher2NodeTemplateOutscale
 	testAccRancher2NodeTemplateOutscaleUpdateConfig = testAccRancher2NodeTemplateOutscaleDriver + testAccRancher2NodeTemplateOutscaleUpdate
 
-// 	testAccRancher2NodeTemplateNutanixDriver = `
-// resource "rancher2_node_driver" "foo-nutanix" {
-// 	active = true
-// 	builtin = false
-// 	name = "nutanix"
-// 	ui_url = "https://nutanix.github.io/rancher-ui-driver/v3.4.0/component.js"
-// 	url = "https://github.com/nutanix/docker-machine/releases/download/v3.4.0/docker-machine-driver-nutanix"
-// 	whitelist_domains = ["nutanix.github.io"]
-// }
-// `
-// 	testAccRancher2NodeTemplateNutanix = `
-// resource "` + testAccRancher2NodeTemplateType + `" "foo-nutanix" {
-// 	name = "foo-nutanix"
-// 	description = "Terraform node driver nutanix acceptance test"
-// 	driver_id = rancher2_node_driver.foo-nutanix.id
-// 	nutanix_config {
-// 		access_key = "access_key"
-// 		secret_key = "secret_key"
-// 		api_url = "http://XXXXXXXX"
-// 	}
-// }
-// `
+	testAccRancher2NodeTemplateNutanixDriver = `
+resource "rancher2_node_driver" "foo-nutanix" {
+	active = true
+	builtin = false
+	name = "nutanix"
+	ui_url = "https://nutanix.github.io/rancher-ui-driver/v3.4.0/component.js"
+	url = "https://github.com/nutanix/docker-machine/releases/download/v3.4.0/docker-machine-driver-nutanix"
+	whitelist_domains = ["nutanix.github.io"]
+}
+`
+	testAccRancher2NodeTemplateNutanix = `
+resource "` + testAccRancher2NodeTemplateType + `" "foo-nutanix" {
+	name = "foo-nutanix"
+	description = "Terraform node driver nutanix acceptance test"
+	driver_id = rancher2_node_driver.foo-nutanix.id
+	nutanix_config {
+		access_key = "access_key"
+		secret_key = "secret_key"
+		api_url = "http://XXXXXXXX"
+	}
+}
+`
 
-// 	testAccRancher2NodeTemplateNutanixUpdate = `
-// resource "` + testAccRancher2NodeTemplateType + `" "foo-nutanix" {
-// 	name = "foo-nutanix"
-// 	description = "Terraform node driver nutanix acceptance test"
-// 	driver_id = rancher2_node_driver.foo-nutanix.id
-// 	nutanix_config {
-// 		access_key = "access_key"
-// 		secret_key = "secret_key"
-// 		api_url = "http://YYYYYYYY"
-// 	}
-// }
-// `
+	testAccRancher2NodeTemplateNutanixUpdate = `
+resource "` + testAccRancher2NodeTemplateType + `" "foo-nutanix" {
+	name = "foo-nutanix"
+	description = "Terraform node driver nutanix acceptance test"
+	driver_id = rancher2_node_driver.foo-nutanix.id
+	nutanix_config {
+		access_key = "access_key"
+		secret_key = "secret_key"
+		api_url = "http://YYYYYYYY"
+	}
+}
+`
 
-// 	testAccRancher2NodeTemplateNutanixConfig       = testAccRancher2NodeTemplateNutanixDriver + testAccRancher2NodeTemplateNutanix
-// 	testAccRancher2NodeTemplateNutanixUpdateConfig = testAccRancher2NodeTemplateNutanixDriver + testAccRancher2NodeTemplateNutanixUpdate
+	testAccRancher2NodeTemplateNutanixConfig       = testAccRancher2NodeTemplateNutanixDriver + testAccRancher2NodeTemplateNutanix
+	testAccRancher2NodeTemplateNutanixUpdateConfig = testAccRancher2NodeTemplateNutanixDriver + testAccRancher2NodeTemplateNutanixUpdate
 )
 
 func TestAccRancher2NodeTemplate_basic_Amazonec2(t *testing.T) {
