@@ -86,7 +86,7 @@ func expandNutanixConfig(p []interface{}) *nutanixConfig {
 	if v, ok := in["cluster"].(string); ok && len(v) > 0 {
 		obj.Cluster = v
 	}
-	if v, ok := in["diskSize"].(string); ok && len(v) > 0 {
+	if v, ok := in["disk_size"].(string); ok && len(v) > 0 {
 		obj.DiskSize = v
 	}
 	if v, ok := in["endpoint"].(string); ok && len(v) > 0 {
@@ -98,34 +98,34 @@ func expandNutanixConfig(p []interface{}) *nutanixConfig {
 	if v, ok := in["project"].(string); ok && len(v) > 0 {
 		obj.Project = v
 	}
-	if v, ok := in["storageContainer"].(string); ok && len(v) > 0 {
+	if v, ok := in["storage_container"].(string); ok && len(v) > 0 {
 		obj.StorageContainer = v
 	}
-	if v, ok := in["vmCategories"].([]interface{}); ok && len(v) > 0 {
+	if v, ok := in["vm_categories"].([]interface{}); ok && len(v) > 0 {
 		obj.VmCategories = toArrayString(v)
 	}
-	if v, ok := in["vmCores"].(string); ok && len(v) > 0 {
+	if v, ok := in["vm_cores"].(string); ok && len(v) > 0 {
 		obj.VmCores = v
 	}
-	if v, ok := in["vmCpuPassthrough"].(bool); ok {
+	if v, ok := in["vm_cpu_passthrough"].(bool); ok {
 		obj.VmCpuPassthrough = v
 	}
-	if v, ok := in["vmCpus"].(string); ok && len(v) > 0 {
+	if v, ok := in["vm_cpus"].(string); ok && len(v) > 0 {
 		obj.VmCpus = v
 	}
-	if v, ok := in["vmImage"].(string); ok && len(v) > 0 {
+	if v, ok := in["vm_image"].(string); ok && len(v) > 0 {
 		obj.VmImage = v
 	}
-	if v, ok := in["vmImageSize"].(string); ok && len(v) > 0 {
+	if v, ok := in["vm_image_size"].(string); ok && len(v) > 0 {
 		obj.VmImageSize = v
 	}
-	if v, ok := in["vmMem"].(string); ok && len(v) > 0 {
+	if v, ok := in["vm_mem"].(string); ok && len(v) > 0 {
 		obj.VmMem = v
 	}
-	if v, ok := in["vmNetwork"].([]interface{}); ok && len(v) > 0 {
+	if v, ok := in["vm_network"].([]interface{}); ok && len(v) > 0 {
 		obj.VmNetwork = toArrayString(v)
 	}
-	if v, ok := in["vmSerialPort"].(bool); ok {
+	if v, ok := in["vm_serial_port"].(bool); ok {
 		obj.VmSerialPort = v
 	}
 

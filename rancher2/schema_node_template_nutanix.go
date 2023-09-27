@@ -63,7 +63,7 @@ func nutanixConfigFields() map[string]*schema.Schema {
 			Optional:    true,
 			Description: "Name of the Nutanix Cluster",
 		},
-		"diskSize": {
+		"disk_size": {
 			Type:        schema.TypeString,
 			Optional:    true,
 			Description: "Disk Size for the primary disk of the Virtual Machine",
@@ -83,12 +83,12 @@ func nutanixConfigFields() map[string]*schema.Schema {
 			Optional:    true,
 			Description: "Name of the Nutanix Project",
 		},
-		"storageContainer": {
+		"storage_container": {
 			Type:        schema.TypeString,
 			Optional:    true,
 			Description: "The storage container UUID of the additional disk to add to the VM",
 		},
-		"vmCategories": {
+		"vm_categories": {
 			Type:        schema.TypeList,
 			Optional:    true,
 			Description: "The name of the categories who will be applied to the newly created VM",
@@ -96,37 +96,37 @@ func nutanixConfigFields() map[string]*schema.Schema {
 				Type: schema.TypeString,
 			},
 		},
-		"vmCores": {
+		"vm_cores": {
 			Type:        schema.TypeString,
 			Optional:    true,
 			Description: "The number of cores to assign to the newly created VM",
 		},
-		"vmCpuPassthrough": {
+		"vm_cpu_passthrough": {
 			Type:        schema.TypeBool,
 			Optional:    true,
 			Description: "Enable passthrough the host's CPU features to the newly created VM",
 		},
-		"vmCpus": {
+		"vm_cpus": {
 			Type:        schema.TypeString,
 			Optional:    true,
 			Description: "The number of cpus in the newly created VM (core)",
 		},
-		"vmImage": {
+		"vm_image": {
 			Type:        schema.TypeString,
 			Optional:    true,
 			Description: "The name of the image to use for the newly created VM",
 		},
-		"vmImageSize": {
+		"vm_image_size": {
 			Type:        schema.TypeString,
 			Optional:    true,
 			Description: "Image will be inflated to this size",
 		},
-		"vmMem": {
+		"vm_mem": {
 			Type:        schema.TypeString,
 			Optional:    true,
 			Description: "Memory size for the newly created VM",
 		},
-		"vmNetwork": {
+		"vm_network": {
 			Type:        schema.TypeList,
 			Optional:    true,
 			Description: "The network(s) to which the VM is attached to",
@@ -134,7 +134,7 @@ func nutanixConfigFields() map[string]*schema.Schema {
 				Type: schema.TypeString,
 			},
 		},
-		"vmSerialPort": {
+		"vm_serial_port": {
 			Type:        schema.TypeBool,
 			Optional:    true,
 			Description: "Attach a serial port to the newly created VM",
