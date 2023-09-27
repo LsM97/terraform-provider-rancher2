@@ -313,6 +313,45 @@ resource "` + testAccRancher2NodeTemplateType + `" "foo-outscale" {
 
 	testAccRancher2NodeTemplateOutscaleConfig       = testAccRancher2NodeTemplateOutscaleDriver + testAccRancher2NodeTemplateOutscale
 	testAccRancher2NodeTemplateOutscaleUpdateConfig = testAccRancher2NodeTemplateOutscaleDriver + testAccRancher2NodeTemplateOutscaleUpdate
+
+// 	testAccRancher2NodeTemplateNutanixDriver = `
+// resource "rancher2_node_driver" "foo-nutanix" {
+// 	active = true
+// 	builtin = false
+// 	name = "nutanix"
+// 	ui_url = "https://nutanix.github.io/rancher-ui-driver/v3.4.0/component.js"
+// 	url = "https://github.com/nutanix/docker-machine/releases/download/v3.4.0/docker-machine-driver-nutanix"
+// 	whitelist_domains = ["nutanix.github.io"]
+// }
+// `
+// 	testAccRancher2NodeTemplateNutanix = `
+// resource "` + testAccRancher2NodeTemplateType + `" "foo-nutanix" {
+// 	name = "foo-nutanix"
+// 	description = "Terraform node driver nutanix acceptance test"
+// 	driver_id = rancher2_node_driver.foo-nutanix.id
+// 	nutanix_config {
+// 		access_key = "access_key"
+// 		secret_key = "secret_key"
+// 		api_url = "http://XXXXXXXX"
+// 	}
+// }
+// `
+
+// 	testAccRancher2NodeTemplateNutanixUpdate = `
+// resource "` + testAccRancher2NodeTemplateType + `" "foo-nutanix" {
+// 	name = "foo-nutanix"
+// 	description = "Terraform node driver nutanix acceptance test"
+// 	driver_id = rancher2_node_driver.foo-nutanix.id
+// 	nutanix_config {
+// 		access_key = "access_key"
+// 		secret_key = "secret_key"
+// 		api_url = "http://YYYYYYYY"
+// 	}
+// }
+// `
+
+// 	testAccRancher2NodeTemplateNutanixConfig       = testAccRancher2NodeTemplateNutanixDriver + testAccRancher2NodeTemplateNutanix
+// 	testAccRancher2NodeTemplateNutanixUpdateConfig = testAccRancher2NodeTemplateNutanixDriver + testAccRancher2NodeTemplateNutanixUpdate
 )
 
 func TestAccRancher2NodeTemplate_basic_Amazonec2(t *testing.T) {
@@ -842,6 +881,69 @@ func TestAccRancher2NodeTemplate_disappears_Outscale(t *testing.T) {
 		},
 	})
 }
+
+// func TestAccRancher2NodeTemplate_basic_Nutanix(t *testing.T) {
+// 	var nodeTemplate *NodeTemplate
+
+// 	name := testAccRancher2NodeTemplateType + ".foo-nutanix"
+// 	resource.Test(t, resource.TestCase{
+// 		PreCheck:     func() { testAccPreCheck(t) },
+// 		Providers:    testAccProviders,
+// 		CheckDestroy: testAccCheckRancher2NodeTemplateDestroy,
+// 		Steps: []resource.TestStep{
+// 			{
+// 				Config: testAccRancher2NodeTemplateNutanixConfig,
+// 				Check: resource.ComposeTestCheckFunc(
+// 					testAccCheckRancher2NodeTemplateExists(name, nodeTemplate),
+// 					resource.TestCheckResourceAttr(name, "name", "foo-nutanix"),
+// 					resource.TestCheckResourceAttr(name, "description", "Terraform node driver nutanix acceptance test"),
+// 					resource.TestCheckResourceAttr(name, "driver", nutanixConfigDriver),
+// 					resource.TestCheckResourceAttr(name, "outscale_config.0.instance_type", "tinav3.c4r8p2"),
+// 				),
+// 			},
+// 			{
+// 				Config: testAccRancher2NodeTemplateNutanixUpdateConfig,
+// 				Check: resource.ComposeTestCheckFunc(
+// 					testAccCheckRancher2NodeTemplateExists(name, nodeTemplate),
+// 					resource.TestCheckResourceAttr(name, "name", "foo-nutanix"),
+// 					resource.TestCheckResourceAttr(name, "description", "Terraform node driver nutanix acceptance test"),
+// 					resource.TestCheckResourceAttr(name, "driver", nutanixConfigDriver),
+// 					resource.TestCheckResourceAttr(name, "outscale_config.0.instance_type", "tinav5.c2r8p2"),
+// 				),
+// 			},
+// 			{
+// 				Config: testAccRancher2NodeTemplateNutanixConfig,
+// 				Check: resource.ComposeTestCheckFunc(
+// 					testAccCheckRancher2NodeTemplateExists(name, nodeTemplate),
+// 					resource.TestCheckResourceAttr(name, "name", "foo-nutanix"),
+// 					resource.TestCheckResourceAttr(name, "description", "Terraform node driver nutanix acceptance test"),
+// 					resource.TestCheckResourceAttr(name, "driver", nutanixConfigDriver),
+// 					resource.TestCheckResourceAttr(name, "nutanix_config.0.instance_type", "tinav3.c4r8p2"),
+// 				),
+// 			},
+// 		},
+// 	})
+// }
+
+// func TestAccRancher2NodeTemplate_disappears_Nutnaix(t *testing.T) {
+// 	var nodeTemplate *NodeTemplate
+
+// 	resource.Test(t, resource.TestCase{
+// 		PreCheck:     func() { testAccPreCheck(t) },
+// 		Providers:    testAccProviders,
+// 		CheckDestroy: testAccCheckRancher2NodeTemplateDestroy,
+// 		Steps: []resource.TestStep{
+// 			{
+// 				Config: testAccRancher2NodeTemplateNutanixConfig,
+// 				Check: resource.ComposeTestCheckFunc(
+// 					testAccCheckRancher2NodeTemplateExists(testAccRancher2NodeTemplateType+".foo-nutanix", nodeTemplate),
+// 					testAccRancher2NodeTemplateDisappears(nodeTemplate),
+// 				),
+// 				ExpectNonEmptyPlan: true,
+// 			},
+// 		},
+// 	})
+// }
 
 func testAccRancher2NodeTemplateDisappears(nodeTemplate *NodeTemplate) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
