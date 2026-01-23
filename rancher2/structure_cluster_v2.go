@@ -60,13 +60,10 @@ func flattenClusterV2(d *schema.ResourceData, in *ClusterV2) error {
 		d.Set("cloud_credential_secret_name", in.Spec.CloudCredentialSecretName)
 	}
 	if in.Spec.ClusterAgentDeploymentCustomization != nil {
-		d.Set("cluster_agent_deployment_customization", flattenAgentDeploymentCustomizationV2(in.Spec.ClusterAgentDeploymentCustomization))
+		d.Set("cluster_agent_deployment_customization", flattenAgentDeploymentCustomizationV2(in.Spec.ClusterAgentDeploymentCustomization, true))
 	}
 	if in.Spec.FleetAgentDeploymentCustomization != nil {
-		d.Set("fleet_agent_deployment_customization", flattenAgentDeploymentCustomizationV2(in.Spec.FleetAgentDeploymentCustomization))
-	}
-	if len(in.Spec.DefaultPodSecurityPolicyTemplateName) > 0 {
-		d.Set("default_pod_security_policy_template_name", in.Spec.DefaultPodSecurityPolicyTemplateName)
+		d.Set("fleet_agent_deployment_customization", flattenAgentDeploymentCustomizationV2(in.Spec.FleetAgentDeploymentCustomization, false))
 	}
 	if len(in.Spec.DefaultPodSecurityAdmissionConfigurationTemplateName) > 0 {
 		d.Set("default_pod_security_admission_configuration_template_name", in.Spec.DefaultPodSecurityAdmissionConfigurationTemplateName)
@@ -124,7 +121,7 @@ func expandClusterV2(in *schema.ResourceData) (*ClusterV2, error) {
 	}
 
 	if v, ok := in.Get("cluster_agent_deployment_customization").([]interface{}); ok && len(v) > 0 {
-		clusterAgentDeploymentCustomization, err := expandAgentDeploymentCustomizationV2(v)
+		clusterAgentDeploymentCustomization, err := expandAgentDeploymentCustomizationV2(v, true)
 		if err != nil {
 			return nil, fmt.Errorf("[ERROR] expanding cluster: %w", err)
 		}
@@ -132,7 +129,7 @@ func expandClusterV2(in *schema.ResourceData) (*ClusterV2, error) {
 	}
 
 	if v, ok := in.Get("fleet_agent_deployment_customization").([]interface{}); ok && len(v) > 0 {
-		fleetAgentDeploymentCustomization, err := expandAgentDeploymentCustomizationV2(v)
+		fleetAgentDeploymentCustomization, err := expandAgentDeploymentCustomizationV2(v, false)
 		if err != nil {
 			return nil, fmt.Errorf("[ERROR] expanding cluster: %w", err)
 		}
@@ -141,9 +138,6 @@ func expandClusterV2(in *schema.ResourceData) (*ClusterV2, error) {
 
 	if v, ok := in.Get("cloud_credential_secret_name").(string); ok && len(v) > 0 {
 		obj.Spec.CloudCredentialSecretName = v
-	}
-	if v, ok := in.Get("default_pod_security_policy_template_name").(string); ok && len(v) > 0 {
-		obj.Spec.DefaultPodSecurityPolicyTemplateName = v
 	}
 	if v, ok := in.Get("default_pod_security_admission_configuration_template_name").(string); ok && len(v) > 0 {
 		obj.Spec.DefaultPodSecurityAdmissionConfigurationTemplateName = v
